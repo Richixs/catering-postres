@@ -22,7 +22,6 @@ on:
 
 jobs:
   build:
-    if: hashFiles('build.gradle.kts') != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
