@@ -1,3 +1,0 @@
-db.url=jdbc:postgresql://localhost:3306/mi_db
-db.user=usuario
-db.password=contraseña

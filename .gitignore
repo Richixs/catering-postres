@@ -33,6 +33,3 @@ replay_pid*
 
 # gradle-wrapper.jar
 !gradle-wrapper.jar
-
-# db credentials
-db.properties
