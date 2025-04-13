@@ -5,9 +5,9 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 
 /**
- * Controller for the primary view.
+ * Controller for the home view.
  */
-public class PrimaryController {
+public class HomeController {
 
     /**
      * Switches to the secondary view.
