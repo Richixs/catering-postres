@@ -216,6 +216,21 @@ public class AdminDessertController extends TopBarController implements Initiali
         Button edit = new Button("Editar");
         Button delete = new Button("Eliminar");
 
+        delete.setOnAction(e -> {
+            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmAlert.setTitle("Confirmar eliminación");
+            confirmAlert.setHeaderText("¿Estás seguro que deseas eliminar este postre?");
+            confirmAlert.setContentText("Esta acción no se puede deshacer.");
+        
+            // Mostrar y esperar respuesta del usuario
+            confirmAlert.showAndWait().ifPresent(response -> {
+                if (response.getButtonData().isDefaultButton()) {
+                    DataManager.getInstance().removeDessert(dessert);
+                    loadDesserts(DataManager.getInstance().getDessertList());
+                }
+            });
+        });
+
         buttonBox.getChildren().addAll(edit, delete);
 
         // Se agregan los elementos al contenedor del postre
