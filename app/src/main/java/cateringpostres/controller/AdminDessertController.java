@@ -28,4 +28,8 @@ public class AdminDessertController extends TopBarController implements Initiali
         initializeTopBar();
         adminDessertButton.setUnderline(true);
     }
+
+    @FXML
+    private void addDessertAction() {
+    }
 }
