@@ -1,5 +1,7 @@
 package cateringpostres.controller;
 
+import cateringpostres.App;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
@@ -38,6 +40,16 @@ public class TopBarController {
         profileIcon.setFitWidth(32);
         profileIcon.setPreserveRatio(true);
         profileMenu.setGraphic(profileIcon);
+    }
+
+    @FXML
+    private void logoButtonClicked() throws IOException {
+        App.setRoot("/view/home");
+    }
+
+    @FXML
+    private void administratorButton() throws IOException {
+        App.setRoot("/view/adminDessert");
     }
 }
 
