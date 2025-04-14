@@ -79,7 +79,7 @@
                         <Button minHeight="32.0" minWidth="32.0" mnemonicParsing="false" />
                      </children>
                   </HBox>
-                  <Button minHeight="32.0" mnemonicParsing="false" text="Button" />
+                  <Button minHeight="32.0" mnemonicParsing="false" onAction="#addDessertAction" text="Añadir" />
                </children>
             </HBox>
             <ScrollPane cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" prefHeight="1000000.0" style="-fx-background-color: transparent;" stylesheets="@css/viewPane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
