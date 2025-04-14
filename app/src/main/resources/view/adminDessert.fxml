@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -79,12 +80,14 @@
                         <Button minHeight="32.0" minWidth="32.0" mnemonicParsing="false" />
                      </children>
                   </HBox>
-                  <Button minHeight="32.0" mnemonicParsing="false" text="Button" />
+                  <Button minHeight="32.0" mnemonicParsing="false" onAction="#addDessertAction" text="Añadir" />
                </children>
             </HBox>
-            <ScrollPane cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" prefHeight="1000000.0" style="-fx-background-color: transparent;" stylesheets="@css/viewPane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+            <ScrollPane cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="0.0" prefHeight="1000000.0" style="-fx-background-color: transparent;" stylesheets="@css/viewPane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox cache="true" VBox.vgrow="ALWAYS" />
+                  <VBox fx:id="dessertAdminVerticalBox" alignment="TOP_CENTER" cache="true" minHeight="230.0" VBox.vgrow="ALWAYS">
+                     <children>
+                     </children></VBox>
                </content>
             </ScrollPane>
          </children>
