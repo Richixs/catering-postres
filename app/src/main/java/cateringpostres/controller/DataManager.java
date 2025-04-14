@@ -12,6 +12,7 @@ import java.util.List;
 public class DataManager {
 
     private static final DataManager instance = new DataManager();
+    private DessertDaoImpl dessertDb = new DessertDaoImpl();
     private List<Dessert> dessertList;
 
     /**
@@ -19,7 +20,6 @@ public class DataManager {
      * Inicializa la lista de postres desde la capa DAO.
      */
     private DataManager() {
-        DessertDaoImpl dessertDb = new DessertDaoImpl();
         this.dessertList = dessertDb.getList();
     }
 
@@ -39,5 +39,10 @@ public class DataManager {
      */
     public List<Dessert> getDessertList() {
         return this.dessertList;
+    }
+
+    public void addDessert(Dessert newDessert) {
+        dessertDb.add(newDessert);
+        dessertList.add(newDessert);
     }
 }

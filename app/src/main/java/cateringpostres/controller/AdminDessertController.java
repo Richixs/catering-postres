@@ -2,14 +2,22 @@ package cateringpostres.controller;
 
 import cateringpostres.model.Dessert;
 import cateringpostres.util.ImageUtils;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,6 +28,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Controlador para la vista de administración de postres.
@@ -52,8 +63,86 @@ public class AdminDessertController extends TopBarController implements Initiali
      */ 
     @FXML
     private void addDessertAction() {
-        // Método para agregar un nuevo postre (pendiente de implementación)
+        // Crear un nuevo Stage (ventana)
+        Stage formStage = new Stage();
+        formStage.initModality(Modality.APPLICATION_MODAL);
+        formStage.setTitle("Agregar nuevo postre");
+        // Campos del formulario
+        TextField nameField = new TextField();
+        nameField.setPromptText("Nombre del postre");
+
+        TextArea descriptionArea = new TextArea();
+        descriptionArea.setPromptText("Descripción");
+
+        TextField priceField = new TextField();
+        priceField.setPromptText("Precio");
+
+        Label imageLabel = new Label("Ninguna imagen seleccionada");
+        Button selectImageButton = new Button("Seleccionar imagen");
+        final byte[][] selectedImageBytes = new byte[1][]; // Almacenar imagen
+
+        selectImageButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Seleccionar imagen");
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
+            );
+            File selectedFile = fileChooser.showOpenDialog(formStage);
+            if (selectedFile != null) {
+                try {
+                    selectedImageBytes[0] = Files.readAllBytes(selectedFile.toPath());
+                    imageLabel.setText(selectedFile.getName());
+                } catch (IOException ex) {
+                    imageLabel.setText("Error al cargar imagen");
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        // Botones de acción
+        Button saveButton = new Button("Guardar");
+        Button cancelButton = new Button("Cancelar");
+
+        saveButton.setOnAction(e -> {
+            try {
+                String name = nameField.getText();
+                String description = descriptionArea.getText();
+                double price = Double.parseDouble(priceField.getText());
+
+                byte[] image = selectedImageBytes[0];
+                if (name.isEmpty() || description.isEmpty() || image == null) {
+                    // Validación simple
+                    showAlert("Faltan datos", "Por favor completa todos los campos.");
+                    return;
+                }
+
+                Dessert newDessert = new Dessert(name, description, price, image);
+                DataManager.getInstance().addDessert(newDessert);
+                loadDesserts(DataManager.getInstance().getDessertList());
+                formStage.close();
+
+            } catch (NumberFormatException ex) {
+                showAlert("Precio inválido", "Introduce un precio válido (ej: 25.50).");
+            }
+        });
+
+        cancelButton.setOnAction(e -> formStage.close());
+
+        // Layout del formulario
+        VBox layout = new VBox(10,
+            new Label("Nombre:"), nameField,
+            new Label("Descripción:"), descriptionArea,
+            new Label("Precio:"), priceField,
+            selectImageButton, imageLabel,
+            new HBox(10, saveButton, cancelButton)
+        );
+        layout.setPadding(new Insets(20));
+
+        formStage.setScene(new Scene(layout, 400, 450));
+        formStage.showAndWait();
     }
+    
+
 
     /**
      * Carga y muestra todos los postres en la interfaz gráfica.
@@ -141,4 +230,12 @@ public class AdminDessertController extends TopBarController implements Initiali
         // Se agrega el postre y la línea a la vista principal
         dessertAdminVerticalBox.getChildren().addAll(dessertBox, line);
     }
+    
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }
