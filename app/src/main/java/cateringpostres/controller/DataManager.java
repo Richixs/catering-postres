@@ -45,4 +45,9 @@ public class DataManager {
         dessertDb.add(newDessert);
         dessertList.add(newDessert);
     }
+
+    public void removeDessert(Dessert dessert) {
+        dessertDb.delete(dessert);
+        dessertList.remove(dessert);
+    }
 }

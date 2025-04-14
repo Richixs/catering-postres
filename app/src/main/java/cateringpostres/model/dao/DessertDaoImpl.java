@@ -105,14 +105,27 @@ public class DessertDaoImpl extends DatabaseConnection implements DessertDao {
     }
 
     /**
-     * Método no implementado para eliminar un postre.
+     * Metodo elimina un postre de la base de datos.
      *
      * @param objectT el objeto {@link Dessert} a eliminar
-     * @return siempre lanza {@link UnsupportedOperationException}
+     * @return {@code true} si el delete fue exitoso, de lo contrario {@code false}
      */
     @Override
     public boolean delete(Dessert objectT) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        int id = getIdByDessert(objectT);
+        if (id == -1) {
+            return false;
+        }
+        
+        String query = "DELETE FROM dessert WHERE id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0; // true si se eliminó al menos una fila
+        } catch (Exception e) {
+            System.out.println("Error eliminando postre: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
