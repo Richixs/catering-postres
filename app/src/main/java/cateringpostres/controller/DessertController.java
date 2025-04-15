@@ -1,11 +1,10 @@
 package cateringpostres.controller;
 
+import cateringpostres.model.Dessert;
+import cateringpostres.util.ImageUtils;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import cateringpostres.model.Dessert;
-import cateringpostres.util.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -20,12 +19,25 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Controlador encargado de gestionar la vista de los postres en la interfaz.
+ * Extiende de TopBarController para incluir la barra superior.
+ */
 public class DessertController extends TopBarController implements Initializable {
+
     @FXML
     private Text dessertButton;
+
     @FXML
     private VBox dessertBox;
-    
+
+    /**
+     * Inicializa el controlador una vez que su contenido FXML ha sido cargado.
+     * Se encarga de configurar la barra superior y mostrar los postres disponibles.
+     *
+     * @param location  La ubicación usada para resolver rutas relativas al archivo raíz.
+     * @param resources Los recursos utilizados para internacionalización/localización.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeTopBar();
@@ -33,6 +45,10 @@ public class DessertController extends TopBarController implements Initializable
         dessertPostBox();
     }
 
+    /**
+     * Llena el contenedor principal con una cuadrícula de postres.
+     * Cada postre se representa con una tarjeta (VBox).
+     */
     private void dessertPostBox() {
         int columns = 4;
         HBox row = null;
@@ -55,10 +71,20 @@ public class DessertController extends TopBarController implements Initializable
             row.getChildren().add(dessertVerticalBox);
         }
     }
-    
+
+    /**
+     * Crea una tarjeta visual (VBox) para un postre específico, incluyendo imagen, nombre y precio.
+     * Al hacer clic en la tarjeta, se muestra una ventana emergente con más detalles.
+     *
+     * @param dessert El objeto Dessert que contiene los datos del postre.
+     * @return Un VBox que representa la vista del postre.
+     */
     private VBox dessertPost(Dessert dessert) {
-        VBox box = new VBox(5); // Espacio entre elementos
-        box.setStyle("-fx-background-color: transparent; -fx-alignment: center; -fx-padding: 10; -fx-background-radius: 12;");
+        VBox box = new VBox(5);
+        box.setStyle("-fx-background-color: transparent;"
+            + " -fx-alignment: center;" 
+            + " -fx-padding: 10;" 
+            + " -fx-background-radius: 12;");
         box.setPrefSize(300, 300);
         box.setMaxSize(300, 300);
         box.setMinSize(300, 300);
@@ -80,6 +106,7 @@ public class DessertController extends TopBarController implements Initializable
 
         box.getChildren().addAll(image, name, price);
 
+        // Acción al hacer clic en la tarjeta del postre
         box.setOnMouseClicked(event -> {
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -117,7 +144,12 @@ public class DessertController extends TopBarController implements Initializable
 
             buttonBox.getChildren().addAll(closeButton, addToCartButton);
 
-            popupContent.getChildren().addAll(popupImage, popupName, popupDescription, popupPrice, buttonBox);
+            popupContent.getChildren().addAll(popupImage,
+                popupName,
+                popupDescription,
+                popupPrice,
+                buttonBox
+            );
 
             Scene popupScene = new Scene(popupContent, 300, 400);
             popupStage.setScene(popupScene);
