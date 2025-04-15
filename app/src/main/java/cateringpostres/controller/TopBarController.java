@@ -3,6 +3,8 @@ package cateringpostres.controller;
 import cateringpostres.App;
 import cateringpostres.model.Dessert;
 import java.io.IOException;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -145,6 +147,14 @@ public class TopBarController {
         cartStage.setScene(scene);
         cartStage.initModality(Modality.APPLICATION_MODAL);
         cartStage.show();
+    }
+
+    private double getTotalPrice(List<Dessert> cartList) {
+        double total= 0.00;
+        for (Dessert dessert : cartList) {
+            total += dessert.getPrice();
+        }
+        return total;
     }
     
 }
