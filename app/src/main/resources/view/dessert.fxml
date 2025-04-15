@@ -46,7 +46,7 @@
                         <Button focusTraversable="false" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" />
                      </children>
                   </HBox>
-                  <ImageView fx:id="cartButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="cartButton" onMouseClicked="#cartButtonClicked" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
                   <MenuButton fx:id="profileMenu" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" scaleShape="false" style="-fx-background-color: transparent;">
                      <items>
                         <MenuItem onAction="#administratorButton" text="Administrador" />
