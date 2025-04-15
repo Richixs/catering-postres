@@ -5,7 +5,6 @@ import cateringpostres.model.Dessert;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -59,8 +58,6 @@ public class TopBarController {
     /**
      * Maneja el evento del botón del logo.
      * Redirige a la vista principal (home).
-     * 
-     * @throws IOException si ocurre un error al cambiar la vista.
      */
     @FXML
     private void logoButtonClicked() throws IOException {
@@ -70,8 +67,6 @@ public class TopBarController {
     /**
      * Maneja el evento del botón de administrador.
      * Redirige a la vista de administración de postres.
-     * 
-     * @throws IOException si ocurre un error al cambiar la vista.
      */
     @FXML
     private void administratorButton() throws IOException {
@@ -81,8 +76,6 @@ public class TopBarController {
     /**
      * Maneja el evento del botón de inicio.
      * Redirige a la vista principal (home).
-     * 
-     * @throws IOException si ocurre un error al cambiar la vista.
      */
     @FXML
     private void homeButtonClicked() throws IOException {
@@ -92,8 +85,6 @@ public class TopBarController {
     /**
      * Maneja el evento del botón de postres.
      * Redirige a la vista donde se muestran los postres disponibles.
-     * 
-     * @throws IOException si ocurre un error al cambiar la vista.
      */
     @FXML
     private void dessertButtonClicked() throws IOException {
@@ -126,7 +117,10 @@ public class TopBarController {
         DataManager instance = DataManager.getInstance();
     
         // Label para mostrar el total
-        Label totalLabel = new Label("Total: $" + String.format("%.2f", getTotalPrice(instance.getCartList())));
+        Label totalLabel = new Label("Total: $" + String.format(
+            "%.2f",
+            getTotalPrice(instance.getCartList())
+            ));
         totalLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
         HBox totalBox = new HBox(totalLabel);
         totalBox.setAlignment(Pos.CENTER_RIGHT);
@@ -146,7 +140,9 @@ public class TopBarController {
                 mainVerticalBox.getChildren().remove(dessertBox);
                 postreNodes.remove(dessertBox);
                 // Actualizar total
-                totalLabel.setText("Total: $" + String.format("%.2f", getTotalPrice(instance.getCartList())));
+                totalLabel.setText(
+                    "Total: $" 
+                    + String.format("%.2f", getTotalPrice(instance.getCartList())));
             });
     
             dessertBox.getChildren().addAll(name, price, deleteButton);
@@ -169,14 +165,8 @@ public class TopBarController {
         cartStage.show();
     }
 
-    /**
-     * Calcula el precio total de los postres en el carrito.
-     * 
-     * @param cartList lista de postres actuales
-     * @return suma total de precios
-     */
     private double getTotalPrice(List<Dessert> cartList) {
-        double total= 0.00;
+        double total = 0.00;
         for (Dessert dessert : cartList) {
             total += dessert.getPrice();
         }
