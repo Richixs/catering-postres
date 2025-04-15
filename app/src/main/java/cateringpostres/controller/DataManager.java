@@ -2,6 +2,8 @@ package cateringpostres.controller;
 
 import cateringpostres.model.Dessert;
 import cateringpostres.model.dao.DessertDaoImpl;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ public class DataManager {
     private static final DataManager instance = new DataManager();
     private DessertDaoImpl dessertDb = new DessertDaoImpl();
     private List<Dessert> dessertList;
+    private List<Dessert> cartList;
 
     /**
      * Constructor privado para evitar la creación de múltiples instancias.
@@ -21,6 +24,7 @@ public class DataManager {
      */
     private DataManager() {
         this.dessertList = dessertDb.getList();
+        this.cartList = new ArrayList<Dessert>();
     }
 
     /**
@@ -74,5 +78,17 @@ public class DataManager {
                 break;
             }
         }
+    }
+
+    public List<Dessert> getCartList() {
+        return this.cartList;
+    }
+
+    public void addDessertToCart(Dessert dessert) {
+        this.cartList.add(dessert);
+    }
+
+    public void removeDessertToCart(Dessert dessert) {
+        this.cartList.remove(dessert);
     }
 }
