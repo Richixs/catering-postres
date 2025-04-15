@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -214,6 +215,69 @@ public class AdminDessertController extends TopBarController implements Initiali
         buttonBox.setPrefWidth(200);
 
         Button edit = new Button("Editar");
+
+        edit.setOnAction(e -> {
+            Stage editStage = new Stage();
+            editStage.setTitle("Editar Postre");
+
+            // Campos con datos actuales
+            TextField nameField = new TextField(dessert.getName());
+            TextArea descriptionArea = new TextArea(dessert.getDescription());
+            TextField priceField = new TextField(String.valueOf(dessert.getPrice()));
+
+            Button saveButton = new Button("Guardar");
+            Button cancelButton = new Button("Cancelar");
+
+            saveButton.setOnAction(event -> {
+                // Validaciones simples
+                if (nameField.getText().isEmpty() || priceField.getText().isEmpty()) {
+                        new Alert(Alert.AlertType.WARNING, 
+                        "Nombre y precio no pueden estar vacíos"
+                    ).showAndWait();
+                    return;
+                }
+
+                try {
+                    // Actualizar el objeto
+                    dessert.setName(nameField.getText());
+                    dessert.setDescription(descriptionArea.getText());
+                    dessert.setPrice(Double.parseDouble(priceField.getText()));
+
+                    // Guardar cambios
+                    DataManager.getInstance().updateDessert(dessert);
+                    loadDesserts(DataManager.getInstance().getDessertList());
+
+                    editStage.close();
+                } catch (NumberFormatException ex) {
+                    new Alert(Alert.AlertType.ERROR, "Precio inválido").showAndWait();
+                }
+            });
+
+            cancelButton.setOnAction(event -> editStage.close());
+
+            // Layout
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(10));
+            
+            grid.add(new Label("Nombre:"), 0, 0);
+            grid.add(nameField, 1, 0);
+            grid.add(new Label("Descripción:"), 0, 1);
+            grid.add(descriptionArea, 1, 1);
+            grid.add(new Label("Precio:"), 0, 2);
+            grid.add(priceField, 1, 2);
+            
+            HBox buttons = new HBox(10, saveButton, cancelButton);
+            buttons.setAlignment(Pos.CENTER_RIGHT);
+            grid.add(buttons, 1, 3);
+
+            Scene scene = new Scene(grid, 400, 250);
+            editStage.setScene(scene);
+            editStage.initModality(Modality.APPLICATION_MODAL); // bloquea la ventana principal
+            editStage.showAndWait();
+        });
+
         Button delete = new Button("Eliminar");
 
         delete.setOnAction(e -> {
