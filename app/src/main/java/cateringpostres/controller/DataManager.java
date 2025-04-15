@@ -2,6 +2,7 @@ package cateringpostres.controller;
 
 import cateringpostres.model.Dessert;
 import cateringpostres.model.dao.DessertDaoImpl;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class DataManager {
     private static final DataManager instance = new DataManager();
     private DessertDaoImpl dessertDb = new DessertDaoImpl();
     private List<Dessert> dessertList;
+    private List<Dessert> cartList;
 
     /**
      * Constructor privado para evitar la creación de múltiples instancias.
@@ -21,6 +23,7 @@ public class DataManager {
      */
     private DataManager() {
         this.dessertList = dessertDb.getList();
+        this.cartList = new ArrayList<Dessert>();
     }
 
     /**
@@ -74,5 +77,32 @@ public class DataManager {
                 break;
             }
         }
+    }
+
+    /**
+     * Obtiene la lista actual de postres en el carrito.
+     *
+     * @return Una lista de objetos {@link Dessert} que están en el carrito.
+     */
+    public List<Dessert> getCartList() {
+        return this.cartList;
+    }
+
+    /**
+     * Añade un postre al carrito.
+     *
+     * @param dessert El postre que se desea añadir al carrito.
+     */
+    public void addDessertToCart(Dessert dessert) {
+        this.cartList.add(dessert);
+    }
+
+    /**
+     * Elimina un postre del carrito.
+     *
+     * @param dessert El postre que se desea eliminar del carrito.
+     */
+    public void removeDessertToCart(Dessert dessert) {
+        this.cartList.remove(dessert);
     }
 }
