@@ -231,7 +231,7 @@ public class AdminDessertController extends TopBarController implements Initiali
             saveButton.setOnAction(event -> {
                 // Validaciones simples
                 if (nameField.getText().isEmpty() || priceField.getText().isEmpty()) {
-                        new Alert(Alert.AlertType.WARNING, 
+                    new Alert(Alert.AlertType.WARNING, 
                         "Nombre y precio no pueden estar vacíos"
                     ).showAndWait();
                     return;

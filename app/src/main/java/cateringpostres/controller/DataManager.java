@@ -70,7 +70,7 @@ public class DataManager {
         dessertDb.update(dessert);
         for (Dessert dessertToBeUpdate : dessertList) {
             if (dessertToBeUpdate.getId() == dessert.getId()) {
-                dessertToBeUpdate = dessert; // Nota: Esto no actualiza la lista. Ver comentario abajo.
+                dessertToBeUpdate = dessert;
                 break;
             }
         }
