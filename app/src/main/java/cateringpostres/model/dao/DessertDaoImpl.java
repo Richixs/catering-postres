@@ -94,14 +94,25 @@ public class DessertDaoImpl extends DatabaseConnection implements DessertDao {
     }
 
     /**
-     * Método no implementado para actualizar un postre.
+     * Método para actualizar un postre.
      *
      * @param objectT el objeto {@link Dessert} con los datos a actualizar
-     * @return siempre lanza {@link UnsupportedOperationException}
+     * @return {@code true} si el update fue exitoso, de lo contrario {@code false}
      */
     @Override
     public boolean update(Dessert objectT) {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String query = "UPDATE dessert SET name = ?, description = ?, price = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, objectT.getName());
+            preparedStatement.setString(2, objectT.getDescription());
+            preparedStatement.setDouble(3, objectT.getPrice());
+            preparedStatement.setInt(4, objectT.getId());
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0;
+        } catch (Exception e) {
+            System.out.println("Error al actualizar postre: " + e.getMessage());
+            return false;
+        }
     }
 
     /**

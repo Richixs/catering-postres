@@ -41,13 +41,38 @@ public class DataManager {
         return this.dessertList;
     }
 
+    /**
+     * Agrega un nuevo postre tanto a la base de datos como a la lista en memoria.
+     *
+     * @param newDessert El objeto {@link Dessert} que se desea agregar.
+     */
     public void addDessert(Dessert newDessert) {
         dessertDb.add(newDessert);
         dessertList.add(newDessert);
     }
 
+    /**
+     * Elimina un postre de la base de datos y de la lista en memoria.
+     *
+     * @param dessert El objeto {@link Dessert} que se desea eliminar.
+     */
     public void removeDessert(Dessert dessert) {
         dessertDb.delete(dessert);
         dessertList.remove(dessert);
+    }
+
+    /**
+     * Actualiza la información de un postre en la base de datos y en la lista en memoria.
+     *
+     * @param dessert El objeto {@link Dessert} que contiene la información actualizada.
+     */
+    public void updateDessert(Dessert dessert) {
+        dessertDb.update(dessert);
+        for (Dessert dessertToBeUpdate : dessertList) {
+            if (dessertToBeUpdate.getId() == dessert.getId()) {
+                dessertToBeUpdate = dessert;
+                break;
+            }
+        }
     }
 }
