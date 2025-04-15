@@ -51,5 +51,15 @@ public class TopBarController {
     private void administratorButton() throws IOException {
         App.setRoot("/view/adminDessert");
     }
+
+    @FXML
+    private void homeButtonClicked() throws IOException {
+        App.setRoot("/view/home");
+    }
+
+    @FXML
+    private void dessertButtonClicked() throws IOException {
+        App.setRoot("/view/dessert");
+    }
 }
 
