@@ -170,7 +170,7 @@ public class AdminDessertController extends TopBarController implements Initiali
         dessertBox.setMinHeight(230);
         dessertBox.setMaxHeight(230);
         dessertBox.setPrefHeight(100);
-        dessertBox.setPrefWidth(200);
+        dessertBox.setMaxWidth(Double.MAX_VALUE);
 
         // Imagen del postre
         ImageView imageView = new ImageView(ImageUtils.bytesToFxImage(
@@ -195,6 +195,7 @@ public class AdminDessertController extends TopBarController implements Initiali
         Text description = new Text(dessert.getDescription());
         description.setFill(Color.WHITE);
         description.setFont(Font.font(16));
+        description.setWrappingWidth(800);
 
         Text price = new Text(String.valueOf(dessert.getPrice()));
         price.setFill(Color.WHITE);
@@ -254,6 +255,11 @@ public class AdminDessertController extends TopBarController implements Initiali
             });
 
             cancelButton.setOnAction(event -> editStage.close());
+
+            HBox.setHgrow(textBox, Priority.ALWAYS);
+            HBox.setHgrow(buttonBox, Priority.ALWAYS);
+            HBox.setHgrow(dessertBox, Priority.ALWAYS);
+
 
             // Layout
             GridPane grid = new GridPane();

@@ -83,9 +83,9 @@
                   <Button minHeight="32.0" mnemonicParsing="false" onAction="#addDessertAction" text="Añadir" />
                </children>
             </HBox>
-            <ScrollPane cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="0.0" prefHeight="1000000.0" style="-fx-background-color: transparent;" stylesheets="@css/viewPane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+            <ScrollPane cacheShape="false" centerShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="0.0" style="-fx-background-color: transparent;" stylesheets="@css/viewPane.css" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="dessertAdminVerticalBox" alignment="TOP_CENTER" cache="true" minHeight="230.0" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="dessertAdminVerticalBox" alignment="TOP_CENTER" cache="true" VBox.vgrow="ALWAYS">
                      <children>
                      </children></VBox>
                </content>
