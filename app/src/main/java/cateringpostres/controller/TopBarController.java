@@ -61,7 +61,7 @@ public class TopBarController {
      */
     @FXML
     private void logoButtonClicked() throws IOException {
-        App.setRoot("/view/home");
+        App.setRoot("/view/dessert");
     }
 
     /**

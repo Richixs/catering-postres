@@ -23,7 +23,7 @@ public class App extends Application {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         double width = screenBounds.getWidth();
         double height = screenBounds.getHeight();
-        scene = new Scene(loadFxml("/view/home"), width, height);
+        scene = new Scene(loadFxml("/view/dessert"), width, height);
         stage.setScene(scene);
         stage.setTitle("CateringPostres");
         stage.show();
